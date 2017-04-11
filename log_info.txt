@@ -1,0 +1,2 @@
+2017-04-11 16:54:15,601 main.py[13] ERROR   : (1064, "You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's Way Kids Smart Omega 3 Fish O...', '2017-04-11', 34.69, 44.95)' at line 1")
+2017-04-11 16:59:52,727 main.py[13] ERROR   : (1064, "You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 's Way Kids Smart Omega 3 Fish O...', '2017-04-11', 34.69, 44.95)' at line 1")

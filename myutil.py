@@ -26,17 +26,20 @@ def findcaller(func):
     return wrapper
 
 
-def logging_init(level=logging.NOTSET, file=None):
+def logging_init(level=logging.NOTSET, file=None, append=True):
     _format = '%(asctime)s %(filename)s[%(lineno)d] %(levelname)-8s: %(message)s'
     if file is None:
         logging.basicConfig(level=level,
                             format=_format)
     else:
+        if file.lower() == "local":
+            file = get_cur_dir() + "\\log_info.txt"
         # default is 'a'=append, 'w'=overwrite
+        mode = 'a' if append is True else 'w'
         logging.basicConfig(level=level,
                             format=_format,
                             filename=file,
-                            filemode='w')
+                            filemode=mode)
 
         '''
         定义一个StreamHandler，将INFO级别或更高的日志信息打印到标准错误，并将其添加到当前的日志处理对象
@@ -178,9 +181,9 @@ def get_number_in_str(str):
     ['456', '78']
     """
     # this can get the number from str like "good456sdg78", return ['456','78']
-    return re.findall(r'\d+', str)
+    return re.findall(r'\d+[\.]?\d+', str)
     # this can get the number seperate in str like "good12sd 45 78 ", return ['45', '78']
-    # return re.findall(r'\b\d+\b', str)
+    # return re.findall(r'\b\d+[\.]?\d+\b', str)
     # more complicated, can recognize and return [30, -10, 34.12, -12.34, 67.56E+3, -14.23e-2]
     # return re.findall("[-+]?\d+[\.]?\d+[eE]?[-+]?\d*", str)
 
