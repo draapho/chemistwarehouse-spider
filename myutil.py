@@ -180,8 +180,10 @@ def get_number_in_str(str):
     >>> get_number_in_str("good456sdg78")
     ['456', '78']
     """
+    match = re.search(r'\d+[\.]?\d+', str)
+    return match.group() if match else 0
     # this can get the number from str like "good456sdg78", return ['456','78']
-    return re.findall(r'\d+[\.]?\d+', str)
+    # return re.findall(r'\d+[\.]?\d+', str)
     # this can get the number seperate in str like "good12sd 45 78 ", return ['45', '78']
     # return re.findall(r'\b\d+[\.]?\d+\b', str)
     # more complicated, can recognize and return [30, -10, 34.12, -12.34, 67.56E+3, -14.23e-2]
@@ -194,7 +196,9 @@ def trim_str(str):
     '1,23'
     """
     # delete all space & tab in the line
-    return re.sub('[\s+]', '', str)
+    # return re.sub('[\s+]', '', str)
+    str = re.sub('\s+', ' ', str)
+    return re.sub('\'', '\'\'', str)
 
 
 ########### main ##########

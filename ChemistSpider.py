@@ -45,12 +45,11 @@ class ChemistSpider:
     def cookData(self, data):
         try:
             val = []
-            val.append(data[0].strip())
-            ########## use re to replace ' special char
-            price = float(myutil.get_number_in_str(data[1])[0])
+            val.append(myutil.trim_str(data[0]))
+            price = float(myutil.get_number_in_str(data[1]))
             val.append(price)
             try:
-                save = float(myutil.get_number_in_str(data[2])[0])
+                save = float(myutil.get_number_in_str(data[2]))
             except:
                 save = 0
             # 取小数点后两位的精度

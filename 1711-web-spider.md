@@ -58,6 +58,10 @@ name = map(string.strip, names)
 遇到过了错误 `There was a problem confirming the ssl certificate: [SSL: CERTIFICATE_VERIFY_FAILED]`
 使用 `pip --trusted-host pypi.python.org install lxml` 即可避免. 也是安全性问题导致的.
 
+爬虫最终性能:
+抓取效率一般, 每1000条数据大概要2分钟. 要提高效率可以考虑使用多进程!
+但一天抓取一次即可, 因此这个速度可以接受. 保持单进程不变.
+
 
 # 数据存储
 
@@ -67,10 +71,12 @@ name = map(string.strip, names)
 - [python操作mysql数据库](http://www.runoob.com/python/python-mysql.html)
 - [Python操作Mysql实例代码教程（查询手册）](http://www.crazyant.net/686.html)
 - [21分钟 MySQL 入门教程](http://www.cnblogs.com/mr-wid/archive/2013/05/09/3068229.html)
+- [Windows下更改MySQL数据库的存储位置](http://blog.csdn.net/heizistudio/article/details/8234185)
 
 Windows 下配置使用MySQL:
 - 下载运行 [MySQL Installer](https://dev.mysql.com/downloads/windows/)
 - 必须安装 `MySQL Server`. 建议安装 `MySQL Workbench`, 为可视化图像, 便于管理查看.
+- 可视化工具也可以使用别的软件. 如 [heidisql](https://www.heidisql.com/)
 - 将`mysql.exe`的路径添加`PATH`环境变量.
 - 创建新的数据库(Workbecn下, 英文为`schema`), 命名为 `chemistwarehouse`. 或者输入指令:
   ``` bash
@@ -106,6 +112,14 @@ Windows 下配置使用MySQL:
 - 至此, 就可以在python下正常使用MySQL数据库了.
   将提取出来的数据去重后, 按一定的格式保存进数据库即可.
 
+- 默认安装在C盘, 而且数据存储也是在C盘. 这个没法接受! 需要把数据存储位置修改到空间更大的E盘.
+  - 停止MySQL服务, 命令行 `net stop MySQL57` 或者使用 `MySQL Workbench` 停止服务
+  - 打开 `C:\ProgramData\MySQL\MySQL Server 5.7\my.ini`
+  - 修改为 `datadir=E:/MySQLdata`, 即设置数据库的新目录
+  - 复制 `C:\ProgramData\MySQL\MySQL Server 5.7\Data` 下所有文件到 `E:/MySQLdata`
+  - 开启MySQL服务 命令行 `net start MySQL57` 或者使用 `MySQL Workbench` 开启服务
+  - 检查 MySQL 服务器状态, 确定数据库目录已更新
+  - 删除 `C:\ProgramData\MySQL\MySQL Server 5.7\Data`
 
 # 数据显示
 

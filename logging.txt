@@ -1,0 +1,11 @@
+2017-04-12 09:50:46,420 ChemistSpider.py[43] INFO    : 2017-04-12: Save 1944 products from http://www.chemistwarehouse.com.au/Shop-Online/256/Health
+2017-04-12 09:59:15,971 ChemistSpider.py[43] INFO    : 2017-04-12: Save 5150 products from http://www.chemistwarehouse.com.au/Shop-Online/257/Beauty
+2017-04-12 10:01:39,394 ChemistSpider.py[43] INFO    : 2017-04-12: Save 1449 products from http://www.chemistwarehouse.com.au/Shop-Online/258/Medicines
+2017-04-12 10:11:09,322 ChemistSpider.py[43] INFO    : 2017-04-12: Save 4993 products from http://www.chemistwarehouse.com.au/Shop-Online/259/Personal-Care
+2017-04-12 10:11:48,569 ChemistSpider.py[43] INFO    : 2017-04-12: Save 361 products from http://www.chemistwarehouse.com.au/Shop-Online/260/Medical-Aids
+2017-04-12 10:11:53,017 ChemistSpider.py[43] INFO    : 2017-04-12: Save 38 products from http://www.chemistwarehouse.com.au/Shop-Online/651/Veterinary
+2017-04-12 14:55:49,184 singleton.py[34] DEBUG   : SingleInstance lockfile: c:\users\kim.yu\appdata\local\temp\D-Working-201704_spider-main-.lock
+2017-04-12 14:57:53,466 singleton.py[34] DEBUG   : SingleInstance lockfile: c:\users\kim.yu\appdata\local\temp\D-Working-201704_spider-main-.lock
+2017-04-12 14:57:57,973 singleton.py[34] DEBUG   : SingleInstance lockfile: c:\users\kim.yu\appdata\local\temp\D-Working-201704_spider-main-.lock
+2017-04-12 14:58:10,525 singleton.py[34] DEBUG   : SingleInstance lockfile: c:\users\kim.yu\appdata\local\temp\D-Working-201704_spider-main-.lock
+2017-04-12 15:05:15,621 main.py[35] INFO    : Try to run: False, then sleep 17 hours
