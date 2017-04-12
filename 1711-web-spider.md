@@ -19,10 +19,14 @@ tags: [embedded, linux, jz2440]
 - 全程使用python即可满足全部需求.
 - 网络爬虫难度不高, 仅需针对特定商品, 每天抓一次, 无需多线程/进程, 无需登录, 无验证码, 无需考虑反爬虫, 无需额外加载JS程序.
 - 数据存储, 使用MySQL, 数据需要去重, 仅记录关键信息. 以便减少数据存储量, 简化数据挖掘和分析的工作
-- 数据图表显示, 使用 matplotlib 即可.
+- 搜索指定产品, 展示历史数据, 使用 pyqt + matplotlib.
 
 
 最终源码见 [github](https://github.com/draapho/chemistwarehouse-spider)
+
+爬虫最终性能:
+抓取效率一般, 每1000条数据大概要2分钟. 要提高效率可以考虑使用多进程!
+但一天抓取一次即可, 因此这个速度可以接受. 暂时保持单进程不变.
 
 
 
@@ -43,24 +47,23 @@ tags: [embedded, linux, jz2440]
 
 ``` python
 # -*- coding:utf-8 -*-
+# pip --trusted-host pypi.python.org install lxml
 
+import string
 from lxml import html
 
 # 获取url的原始数据
-doc = html.parse(url)
+doc = html.parse('http://www.chemistwarehouse.com.au/search?searchtext=blackmores%20bone&searchmode=allwords')
 # 获取指定的数据值
 names = doc.xpath('//a[@class="product-container search-result"]/@title')
 # 处理数据, 准备存入数据库即可.
 name = map(string.strip, names)
+print name
 ```
 
 另:
 遇到过了错误 `There was a problem confirming the ssl certificate: [SSL: CERTIFICATE_VERIFY_FAILED]`
 使用 `pip --trusted-host pypi.python.org install lxml` 即可避免. 也是安全性问题导致的.
-
-爬虫最终性能:
-抓取效率一般, 每1000条数据大概要2分钟. 要提高效率可以考虑使用多进程!
-但一天抓取一次即可, 因此这个速度可以接受. 保持单进程不变.
 
 
 # 数据存储
@@ -121,10 +124,15 @@ Windows 下配置使用MySQL:
   - 检查 MySQL 服务器状态, 确定数据库目录已更新
   - 删除 `C:\ProgramData\MySQL\MySQL Server 5.7\Data`
 
+
 # 数据显示
-
-
-
+参考资料如下:
+- [http://blog.topspeedsnail.com/archives/814](http://blog.topspeedsnail.com/archives/814) 这个博客有对 matplotlib 制图有一个系列的文章
+- [用python的matplotlib库绘制柱状图和饼图](http://ningning.today/2015/04/17/python/%E7%94%A8matplotlib%E7%BB%98%E5%88%B6%E6%9F%B1%E7%8A%B6%E5%9B%BE%E5%92%8C%E9%A5%BC%E5%9B%BE/)
+- [Building a Matplotlib GUI with Qt Designer: Part 1](http://blog.rcnelson.com/building-a-matplotlib-gui-with-qt-designer-part-1/), 由三部分组成, 还有[Part2](http://blog.rcnelson.com/building-a-matplotlib-gui-with-qt-designer-part-2/)和[Part3](http://blog.rcnelson.com/building-a-matplotlib-gui-with-qt-designer-part-3/)
+- [matplotlib with PyQt GUIs](http://eli.thegreenplace.net/2009/01/20/matplotlib-with-pyqt-guis), 有 [github 范例](https://github.com/eliben/code-for-blog/blob/master/2009/qt_mpl_bars.py)
+- pyqt的使用可参考我的博客 [python的第一个小程序, 蓝牙及串口终端](https://draapho.github.io/2016/11/16/1617-python-terminal/)
+- 使用pip安装 matplotlib: `pip --trusted-host pypi.python.org install matplotlib`
 
 
 ----------
