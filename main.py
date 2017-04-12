@@ -2,7 +2,6 @@
 
 import myutil
 import logging
-import myutil
 import time
 import ChemistSpider
 from tendo import singleton
