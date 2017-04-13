@@ -127,12 +127,53 @@ Windows 下配置使用MySQL:
 
 # 数据显示
 参考资料如下:
-- [http://blog.topspeedsnail.com/archives/814](http://blog.topspeedsnail.com/archives/814) 这个博客有对 matplotlib 制图有一个系列的文章
+- [Python 中用 matplotlib 绘制直方图](http://blog.topspeedsnail.com/archives/814) 这个博客有对 matplotlib 制图有一个系列的文章
 - [用python的matplotlib库绘制柱状图和饼图](http://ningning.today/2015/04/17/python/%E7%94%A8matplotlib%E7%BB%98%E5%88%B6%E6%9F%B1%E7%8A%B6%E5%9B%BE%E5%92%8C%E9%A5%BC%E5%9B%BE/)
 - [Building a Matplotlib GUI with Qt Designer: Part 1](http://blog.rcnelson.com/building-a-matplotlib-gui-with-qt-designer-part-1/), 由三部分组成, 还有[Part2](http://blog.rcnelson.com/building-a-matplotlib-gui-with-qt-designer-part-2/)和[Part3](http://blog.rcnelson.com/building-a-matplotlib-gui-with-qt-designer-part-3/)
 - [matplotlib with PyQt GUIs](http://eli.thegreenplace.net/2009/01/20/matplotlib-with-pyqt-guis), 有 [github 范例](https://github.com/eliben/code-for-blog/blob/master/2009/qt_mpl_bars.py)
 - pyqt的使用可参考我的博客 [python的第一个小程序, 蓝牙及串口终端](https://draapho.github.io/2016/11/16/1617-python-terminal/)
 - 使用pip安装 matplotlib: `pip --trusted-host pypi.python.org install matplotlib`
+
+``` python
+# generic Widget
+# pyuic window.ui > window.py
+
+from PyQt4.uic import loadUiType
+
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_qt4agg import (
+    FigureCanvasQTAgg as FigureCanvas,
+    NavigationToolbar2QT as NavigationToolbar)
+
+
+class Main(QMainWindow, Ui_MainWindow):
+    def __init__(self, ):
+        super(Main, self).__init__()
+        self.setupUi(self)
+
+def addmpl(self, fig):
+    self.canvas = FigureCanvas(fig)
+    self.mplvl.addWidget(self.canvas)
+    self.canvas.draw()
+    self.toolbar = NavigationToolbar(self.canvas,
+            self.mplwindow, coordinates=True)
+    self.mplvl.addWidget(self.toolbar)
+
+if __name__ == '__main__':
+    import sys
+    from PyQt4 import QtGui
+    import numpy as np
+
+    fig1 = Figure()
+    ax1f1 = fig1.add_subplot(111)
+    ax1f1.plot(np.random.rand(5))
+
+    app = QtGui.QApplication(sys.argv)
+    main = Main()
+    main.addmpl(fig1)
+    main.show()
+    sys.exit(app.exec_())
+```
 
 
 ----------
