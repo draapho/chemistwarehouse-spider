@@ -22,14 +22,6 @@ tags: [embedded, linux, jz2440]
 - 搜索指定产品, 展示历史数据, 使用 pyqt + matplotlib.
 
 
-最终源码见 [github](https://github.com/draapho/chemistwarehouse-spider)
-
-爬虫最终性能:
-抓取效率一般, 每1000条数据大概要2分钟. 要提高效率可以考虑使用多进程!
-但一天抓取一次即可, 因此这个速度可以接受. 暂时保持单进程不变.
-
-
-
 # 网络爬虫
 
 花了二天时间, 简单过了一遍网络爬虫的关键技术. 参考资料如下:
@@ -132,48 +124,19 @@ Windows 下配置使用MySQL:
 - [Building a Matplotlib GUI with Qt Designer: Part 1](http://blog.rcnelson.com/building-a-matplotlib-gui-with-qt-designer-part-1/), 由三部分组成, 还有[Part2](http://blog.rcnelson.com/building-a-matplotlib-gui-with-qt-designer-part-2/)和[Part3](http://blog.rcnelson.com/building-a-matplotlib-gui-with-qt-designer-part-3/)
 - [matplotlib with PyQt GUIs](http://eli.thegreenplace.net/2009/01/20/matplotlib-with-pyqt-guis), 有 [github 范例](https://github.com/eliben/code-for-blog/blob/master/2009/qt_mpl_bars.py)
 - pyqt的使用可参考我的博客 [python的第一个小程序, 蓝牙及串口终端](https://draapho.github.io/2016/11/16/1617-python-terminal/)
+
+设计思路和注意事项
 - 使用pip安装 matplotlib: `pip --trusted-host pypi.python.org install matplotlib`
-
-``` python
-# generic Widget
-# pyuic window.ui > window.py
-
-from PyQt4.uic import loadUiType
-
-from matplotlib.figure import Figure
-from matplotlib.backends.backend_qt4agg import (
-    FigureCanvasQTAgg as FigureCanvas,
-    NavigationToolbar2QT as NavigationToolbar)
+- 数据显示和数据抓取是完全独立的, 因此数据抓取单独生成了一个exe文件, 数据显示也单独生成一个文件.
+- 数据显示exe可以打开多个, 以便分析比较. 数据抓取仅可打开一个.
 
 
-class Main(QMainWindow, Ui_MainWindow):
-    def __init__(self, ):
-        super(Main, self).__init__()
-        self.setupUi(self)
+# 源码及性能
+最终源码见 [github](https://github.com/draapho/chemistwarehouse-spider)
 
-def addmpl(self, fig):
-    self.canvas = FigureCanvas(fig)
-    self.mplvl.addWidget(self.canvas)
-    self.canvas.draw()
-    self.toolbar = NavigationToolbar(self.canvas,
-            self.mplwindow, coordinates=True)
-    self.mplvl.addWidget(self.toolbar)
-
-if __name__ == '__main__':
-    import sys
-    from PyQt4 import QtGui
-    import numpy as np
-
-    fig1 = Figure()
-    ax1f1 = fig1.add_subplot(111)
-    ax1f1.plot(np.random.rand(5))
-
-    app = QtGui.QApplication(sys.argv)
-    main = Main()
-    main.addmpl(fig1)
-    main.show()
-    sys.exit(app.exec_())
-```
+爬虫最终性能:
+抓取效率一般, 每1000条数据大概要2分钟. 要提高效率可以考虑使用多进程!
+但一天抓取一次即可, 因此这个速度可以接受. 暂时保持单进程不变.
 
 
 ----------
