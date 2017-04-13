@@ -18,7 +18,6 @@ CATEGORIES = [
     # "http://www.chemistwarehouse.com.au/Shop-Online/261/Prescriptions",
     # "http://www.chemistwarehouse.com.au/Shop-Online/694/Confectionery",
 ]
-LOG_FILE = myutil.get_cur_dir() + "\logging.txt"
 
 
 class ChemistSpider:
@@ -31,27 +30,25 @@ class ChemistSpider:
 
     def saveProductsInfo(self, url):
         # 获取并保存整个品类的产品信息
-        count = 0
         page = url
-        date = time.strftime("%Y-%m-%d", time.localtime())
+        date = time.strftime("%Y-%m-%d %a", time.localtime())
         self.db.openDatabase()
         total_sale = total_save = 0
+        count_sale = count_save = 0
         while (page is not None):
             (products, sale, save) = self.getData(page)
             total_sale += sale
             total_save += save
             self.db.saveDatas(products, date)
-            count += len(products)
+            count_sale += len(products)
+            count_save += len(products) - products.count(0)
             page = self.getNext(page)
-        total_average = [["category-average " + url.split('/')[-1], round(total_sale / count, 2),
-                          round(total_save / count, 2)]]
-        self.db.saveDatas(total_average, date)
+        category = [["category-total " + url.split('/')[-1], round(total_sale, 2), round(total_save, 2)],
+                    ["category-count " + url.split('/')[-1], count_sale, count_save]]
+        self.db.saveDatas(category, date)
         self.db.closeDatabase()
-        logging.info("Save {} products from {}".format(count, url))
-        with open(LOG_FILE, 'a') as f:
-            f.write("{}: Save {} products from {}\r".format(time.strftime("%Y-%m-%d %H:%M:%S",
-                                                                          time.localtime()), count, url))
-        return count
+        logging.info("{}, Save {} products from {}".format(
+            date, count_sale, url))
 
     def cookData(self, data):
         try:
@@ -69,9 +66,6 @@ class ChemistSpider:
         except Exception as e:
             logging.error("product:" + data)
             logging.error(e)
-            with open(LOG_FILE, 'a') as f:
-                f.write("cookData: {}\r".format(data))
-                f.write("error: {}\r".format(e))
 
     def getData(self, url):
         try:
@@ -95,9 +89,6 @@ class ChemistSpider:
         except Exception as e:
             logging.error("url:" + url)
             logging.error(e)
-            with open(LOG_FILE, 'a') as f:
-                f.write("getData: {}\r".format(url))
-                f.write("error: {}\r".format(e))
 
     def getNext(self, url):
         # 获取下一页的网址
@@ -114,9 +105,6 @@ class ChemistSpider:
         except Exception as e:
             logging.error("url:" + url)
             logging.error(e)
-            with open(LOG_FILE, 'a') as f:
-                f.write("getNext: {}\r".format(url))
-                f.write("error: {}\r".format(e))
 
 
 if __name__ == "__main__":
