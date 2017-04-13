@@ -5,3 +5,11 @@
 2017-04-12 23:14:38,822 ChemistSpider.py[42] INFO    : 2017-04-12: Save 362 products from http://www.chemistwarehouse.com.au/Shop-Online/260/Medical-Aids
 2017-04-12 23:14:40,980 ChemistSpider.py[42] INFO    : 2017-04-12: Save 38 products from http://www.chemistwarehouse.com.au/Shop-Online/651/Veterinary
 2017-04-12 23:14:40,980 main.py[34] INFO    : Try to run: True, then sleep 9 hours
+2017-04-12 23:57:37,582 main.py[34] INFO    : Try to run: False, then sleep 9 hours
+2017-04-13 08:59:51,117 ChemistSpider.py[42] INFO    : 2017-04-13: Save 1962 products from http://www.chemistwarehouse.com.au/Shop-Online/256/Health
+2017-04-13 09:05:45,447 ChemistSpider.py[42] INFO    : 2017-04-13: Save 5162 products from http://www.chemistwarehouse.com.au/Shop-Online/257/Beauty
+2017-04-13 09:07:30,079 ChemistSpider.py[42] INFO    : 2017-04-13: Save 1449 products from http://www.chemistwarehouse.com.au/Shop-Online/258/Medicines
+2017-04-13 09:13:25,417 ChemistSpider.py[42] INFO    : 2017-04-13: Save 5036 products from http://www.chemistwarehouse.com.au/Shop-Online/259/Personal-Care
+2017-04-13 09:13:48,256 ChemistSpider.py[42] INFO    : 2017-04-13: Save 360 products from http://www.chemistwarehouse.com.au/Shop-Online/260/Medical-Aids
+2017-04-13 09:13:51,224 ChemistSpider.py[42] INFO    : 2017-04-13: Save 38 products from http://www.chemistwarehouse.com.au/Shop-Online/651/Veterinary
+2017-04-13 09:13:51,224 main.py[34] INFO    : Try to run: True, then sleep 23 hours
