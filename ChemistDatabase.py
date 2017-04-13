@@ -36,10 +36,10 @@ class ChemistDatabase:
             cur = self.connect.cursor()
             cur.execute("""CREATE TABLE IF NOT EXISTS products(
                          id bigint unsigned auto_increment primary key,
-                         name varchar(200) not null,
+                         name varchar(250) not null,
                          date date not null,
                          sale float not null,
-                         total float not null
+                         save float not null
                          )""")
         self.closeDatabase()
 
@@ -48,7 +48,7 @@ class ChemistDatabase:
         with self.connect:
             cur = self.connect.cursor()
             for data in datas:
-                cur.execute("INSERT INTO products(name, date, sale, total) VALUES(\'{}\', \'{}\', {}, {})".format(
+                cur.execute("INSERT INTO products(name, date, sale, save) VALUES(\'{}\', \'{}\', {}, {})".format(
                     data[0], date, data[1], data[2]))
 
 if __name__ == "__main__":

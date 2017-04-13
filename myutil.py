@@ -197,8 +197,7 @@ def trim_str(str):
     """
     # delete all space & tab in the line
     # return re.sub('[\s+]', '', str)
-    str = re.sub('\s+', ' ', str)
-    return re.sub('\'', '\'\'', str)
+    return re.sub('\'', '\'\'', str.strip())
 
 
 ########### main ##########

@@ -33,11 +33,17 @@ class ChemistSpider:
         page = url
         date = time.strftime("%Y-%m-%d", time.localtime())
         self.db.openDatabase()
+        total_sale = total_save = 0
         while (page is not None):
-            products = self.getData(page)
+            (products, sale, save) = self.getData(page)
+            total_sale += sale
+            total_save += save
             self.db.saveDatas(products, date)
             count += len(products)
             page = self.getNext(page)
+        total = [[url.split('/')[-1], round(total_sale, 2),
+                 round(total_save, 2)]]
+        self.db.saveDatas(total, date)
         self.db.closeDatabase()
         logging.info("{}: Save {} products from {}".format(date, count, url))
         return count
@@ -53,7 +59,7 @@ class ChemistSpider:
             except:
                 save = 0
             # 取小数点后两位的精度
-            val.append(round(price + save, 2))
+            val.append(save)
             return val
         except Exception as e:
             logging.error("product:" + data)
@@ -63,18 +69,21 @@ class ChemistSpider:
         try:
             # 获取当前页面的产品信息(名称, 售价, 折扣)
             products = []
+            page_sale = page_save = 0
             root = html.parse(url)
-            results = root.xpath('//div[@class="Product"]')
+            results = root.xpath('//a[@class="product-container"]')
             for result in results:
                 product = result.xpath(
-                    ' .//div[@class="product-name"]/text() \
+                    ' ./@title \
                     | .//div[@class="prices"]/span[@class="Price"]/text() \
                     | .//div[@class="prices"]/span[@class="Save"]/text()')
                 product = self.cookData(product)
                 products.append(product)
+                page_sale += product[1]
+                page_save += product[2]
             if len(products) == 0:
                 logging.error("No Products! url=" + url)
-            return products
+            return (products, page_sale, page_save)
         except Exception as e:
             logging.error("url:" + url)
             logging.error(e)
