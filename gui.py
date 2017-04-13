@@ -83,7 +83,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName(_fromUtf8("scrollArea"))
         self.scrollAreaWidgetContents = QtGui.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 762, 424))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 762, 284))
         self.scrollAreaWidgetContents.setObjectName(_fromUtf8("scrollAreaWidgetContents"))
         self.verticalLayout_4 = QtGui.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_4.setObjectName(_fromUtf8("verticalLayout_4"))
@@ -108,7 +108,7 @@ class Ui_MainWindow(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollArea_2.setObjectName(_fromUtf8("scrollArea_2"))
         self.scrollAreaWidgetContents_2 = QtGui.QWidget()
-        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 745, 89))
+        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 762, 210))
         self.scrollAreaWidgetContents_2.setObjectName(_fromUtf8("scrollAreaWidgetContents_2"))
         self.verticalLayout_3 = QtGui.QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_3.setObjectName(_fromUtf8("verticalLayout_3"))
@@ -124,8 +124,8 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))
-        self.groupBox.setTitle(_translate("MainWindow", "Operate", None))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Chemist UI", None))
+        self.groupBox.setTitle(_translate("MainWindow", "Input product", None))
         self.pushButton.setText(_translate("MainWindow", "search", None))
 
 

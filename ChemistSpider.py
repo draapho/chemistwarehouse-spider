@@ -41,7 +41,8 @@ class ChemistSpider:
             total_save += save
             self.db.saveDatas(products, date)
             count_sale += len(products)
-            count_save += len(products) - products.count(0)
+            for product in products:
+                count_save += 1 if product[2] != 0 else 0
             page = self.getNext(page)
         category = [["category-total " + url.split('/')[-1], round(total_sale, 2), round(total_save, 2)],
                     ["category-count " + url.split('/')[-1], count_sale, count_save]]
@@ -110,5 +111,4 @@ class ChemistSpider:
 if __name__ == "__main__":
     myutil.logging_init()
     spider = ChemistSpider()
-    spider.saveProductsInfo(
-        "http://www.chemistwarehouse.com.au/Shop-Online/651/Veterinary")
+    spider.saveProductsInfo(CATEGORIES[0])

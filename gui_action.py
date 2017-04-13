@@ -3,6 +3,7 @@
 # pip --trusted-host pypi.python.org install numpy
 # pip --trusted-host pypi.python.org install matplotlib
 # pyuic4.bat -x -o gui.py gui.ui
+# pyinstaller.exe --onefile --windowed gui_action.py
 
 import gui
 import sys

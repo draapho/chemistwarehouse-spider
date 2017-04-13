@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Chemist UI</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -24,7 +24,7 @@
        </sizepolicy>
       </property>
       <property name="title">
-       <string>Operate</string>
+       <string>Input product</string>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
@@ -92,7 +92,7 @@
              <x>0</x>
              <y>0</y>
              <width>762</width>
-             <height>424</height>
+             <height>284</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -128,8 +128,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>745</width>
-             <height>89</height>
+             <width>762</width>
+             <height>210</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_3">
