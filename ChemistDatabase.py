@@ -52,11 +52,16 @@ class ChemistDatabase:
                 cur.execute("INSERT INTO products(name, date, sale, save) VALUES(\'{}\', \'{}\', {}, {})".format(
                     data[0], date, data[1], data[2]))
 
-    def searchName(self, key):
-        # 搜索产品名称， 根据空格分解为多个关键字查询
-        keys = myutil.trim_str(key).split()
-        cmd = ' and '.join(["name like \'%{}%\'"] * len(keys))
-        cmd = "select name from products where {}".format(cmd)
+    def searchName(self, key=None):
+        if key is None or key.strip() == "":
+            # 搜索所有产品名称
+            keys = []
+            cmd = "select DISTINCT(name) from products order by name"
+        else:
+            # 搜索产品名称， 根据空格分解为多个关键字查询
+            keys = myutil.trim_str(key).split()
+            cmd = ' and '.join(["name like \'%{}%\'"] * len(keys))
+            cmd = "select DISTINCT(name) from products where {} order by name".format(cmd)
         # print cmd
         with self.connect:
             cur = self.connect.cursor()
@@ -65,26 +70,23 @@ class ChemistDatabase:
             return list(itertools.chain.from_iterable(cur.fetchall()))
         return None
 
-    def findPrices(self, key):
-        cmd1 = "select sale from products where name like \'%{}%\'".format(key)
-        cmd2 = "select save from products where name like \'%{}%\'".format(key)
-        # print cmd1
-        # print cmd2
+    def findProduct(self, key):
+        cmd = "select * from products where name=\'{}\'".format(key)
+        # print cmd
         with self.connect:
             cur = self.connect.cursor()
-            cur.execute(cmd1)
-            # 降二维为一维
-            sales = list(itertools.chain.from_iterable(cur.fetchall()))
-            cur.execute(cmd2)
-            saves = list(itertools.chain.from_iterable(cur.fetchall()))
-            return (sales, saves)
+            cur.execute(cmd)
+            products = cur.fetchall()
+            # 矩阵变化
+            return map(list, zip(*products))
         return None
 
 if __name__ == "__main__":
     myutil.logging_init()
     cd = ChemistDatabase()
     cd.openDatabase()
-    # print cd.searchName("swisse calcium")
+    # print cd.searchName()
+    print cd.searchName("swisse")
     print cd.findProduct("Swisse Ultiboost Calcium + Vitamin D 150 Tablets")
     cd.closeDatabase()
     # cd.creatTable()
