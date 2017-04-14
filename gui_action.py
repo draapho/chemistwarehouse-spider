@@ -30,7 +30,7 @@ class GuiAction(QMainWindow, gui.Ui_MainWindow):
         self.pushButtonClear.clicked.connect(self.clear_diagram)
         self.comboBoxProduct.currentIndexChanged.connect(self.input_changed)
         self.comboBoxProduct.setCurrentIndex(0)
-        self.categories = [""]
+        self.categories = ["Search"]
         for url in ChemistSpider.CATEGORIES:
             self.categories.append("category " + url.split('/')[-1])
         self.comboBoxProduct.addItems(self.categories)
@@ -67,15 +67,13 @@ class GuiAction(QMainWindow, gui.Ui_MainWindow):
                 totals = db.findProduct("category-total " + name.split()[-1])
                 counts = db.findProduct("category-count " + name.split()[-1])
                 db.closeDatabase()
-                print totals
-                print counts  # ////////////////
-                # self.creatDiagram(product)
+                self.creatDiagramCategory(totals, counts)
             else:
                 db = ChemistDatabase()
                 db.openDatabase()
                 product = db.findProduct(name)
                 db.closeDatabase()
-                self.creatDiagram(product)
+                self.creatDiagramProduct(product)
         else:
             # search product
             search = myutil.trim_str(
@@ -90,11 +88,38 @@ class GuiAction(QMainWindow, gui.Ui_MainWindow):
                 names = db.searchName(search)
                 db.closeDatabase()
                 self.comboBoxProduct.clear()
-                self.comboBoxProduct.addItem("")
+                self.comboBoxProduct.addItem("Select or Search")
                 self.comboBoxProduct.addItems(names)
                 self.list_len = len(names) + 1
 
-    def creatDiagram(self, product):
+    def creatDiagramCategory(self, totals, counts):
+        # basic setting
+        fig = Figure()
+        axis = fig.add_subplot(111)
+        canvas = FigureCanvas(fig)
+        self.verticalLayoutDraw.addWidget(canvas)
+        toolbar = NavigationToolbar(canvas, self.widgetDraw)
+        self.verticalLayoutDraw.addWidget(toolbar)
+        # cook data
+        name = "category " + str(totals[1][0]).split()[-1]
+        x = totals[2]
+        count_ratio = [round(j / i, 2) for i in counts[3] for j in counts[4]]
+        price_ratio = [round(j / (i + j), 2) for i in totals[3] for j in totals[4]]
+        # 设置x轴为日期
+        try:
+            date_range = (x[-1] - x[1]).days
+        except:
+            date_range = 0
+        axis.xaxis.set_major_locator(
+            mdates.DayLocator(interval=(1 + date_range // 12)))
+        axis.xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d -%a"))
+        axis.set_title(name)
+        y1, = axis.plot(x, count_ratio, 'xg-', label='line1')
+        y2, = axis.plot(x, price_ratio, '+r-', label='line2')
+        axis.legend([y1, y2], ['save/total count', 'save/total $'], loc=1)
+        fig.autofmt_xdate()
+
+    def creatDiagramProduct(self, product):
         # basic setting
         fig = Figure()
         axis = fig.add_subplot(111)
@@ -116,7 +141,7 @@ class GuiAction(QMainWindow, gui.Ui_MainWindow):
             date_range = 0
         axis.xaxis.set_major_locator(
             mdates.DayLocator(interval=(1 + date_range // 12)))
-        axis.xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d"))
+        axis.xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d -%a"))
         axis.set_title(name)
         y1, = axis.plot(x, total, '+k--', label='line1')
         y2, = axis.plot(x, sale, 'or-', label='line2')
