@@ -104,7 +104,7 @@ class GuiAction(QMainWindow, gui.Ui_MainWindow):
         name = "category " + str(totals[1][0]).split()[-1]
         x = totals[2]
         count_ratio = [round(j / i, 2) for i in counts[3] for j in counts[4]]
-        price_ratio = [round(j / (i + j), 2) for i in totals[3] for j in totals[4]]
+        price_ratio = [round(i / (i + j), 2) for i in totals[3] for j in totals[4]]
         # 设置x轴为日期
         try:
             date_range = (x[-1] - x[1]).days
@@ -116,7 +116,7 @@ class GuiAction(QMainWindow, gui.Ui_MainWindow):
         axis.set_title(name)
         y1, = axis.plot(x, count_ratio, 'xg-', label='line1')
         y2, = axis.plot(x, price_ratio, '+r-', label='line2')
-        axis.legend([y1, y2], ['save/total count', 'save/total $'], loc=1)
+        axis.legend([y1, y2], ['save/total count', 'sale/total $'], loc=1)
         fig.autofmt_xdate()
 
     def creatDiagramProduct(self, product):
