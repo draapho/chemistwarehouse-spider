@@ -121,6 +121,7 @@ Windows 下配置使用MySQL:
 参考资料如下:
 - [Python 中用 matplotlib 绘制直方图](http://blog.topspeedsnail.com/archives/814) 这个博客有对 matplotlib 制图有一个系列的文章
 - [用python的matplotlib库绘制柱状图和饼图](http://ningning.today/2015/04/17/python/%E7%94%A8matplotlib%E7%BB%98%E5%88%B6%E6%9F%B1%E7%8A%B6%E5%9B%BE%E5%92%8C%E9%A5%BC%E5%9B%BE/)
+- [使用Python matplotlib绘制股票走势图](http://www.jdon.com/idea/matplotlib.html)
 - [Building a Matplotlib GUI with Qt Designer: Part 1](http://blog.rcnelson.com/building-a-matplotlib-gui-with-qt-designer-part-1/), 由三部分组成, 还有[Part2](http://blog.rcnelson.com/building-a-matplotlib-gui-with-qt-designer-part-2/)和[Part3](http://blog.rcnelson.com/building-a-matplotlib-gui-with-qt-designer-part-3/)
 - [matplotlib with PyQt GUIs](http://eli.thegreenplace.net/2009/01/20/matplotlib-with-pyqt-guis), 有 [github 范例](https://github.com/eliben/code-for-blog/blob/master/2009/qt_mpl_bars.py)
 - pyqt的使用可参考我的博客 [python的第一个小程序, 蓝牙及串口终端](https://draapho.github.io/2016/11/16/1617-python-terminal/)

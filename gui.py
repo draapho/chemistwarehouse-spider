@@ -39,6 +39,9 @@ class Ui_MainWindow(object):
         self.groupBox.setObjectName(_fromUtf8("groupBox"))
         self.horizontalLayout = QtGui.QHBoxLayout(self.groupBox)
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
+        self.pushButtonClear = QtGui.QPushButton(self.groupBox)
+        self.pushButtonClear.setObjectName(_fromUtf8("pushButtonClear"))
+        self.horizontalLayout.addWidget(self.pushButtonClear)
         self.comboBoxProduct = QtGui.QComboBox(self.groupBox)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -75,6 +78,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "Chemist UI", None))
         self.groupBox.setTitle(_translate("MainWindow", "Input product", None))
+        self.pushButtonClear.setText(_translate("MainWindow", "Clear Diagram", None))
         self.pushButtonOpen.setText(_translate("MainWindow", "Open Logging", None))
 
 

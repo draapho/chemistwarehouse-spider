@@ -1,6 +1,5 @@
 # -*- coding:utf-8 -*-
 
-import sys
 import logging
 import time
 import myutil
@@ -22,16 +21,14 @@ CATEGORIES = [
 
 class ChemistSpider:
 
-    def __init__(self, coding='utf8'):
-        reload(sys)
-        sys.setdefaultencoding(coding)
+    def __init__(self):
         self.db = ChemistDatabase.ChemistDatabase()
         self.db.creatTable()
 
     def saveProductsInfo(self, url):
         # 获取并保存整个品类的产品信息
         page = url
-        date = time.strftime("%Y-%m-%d %a", time.localtime())
+        date = time.strftime("%Y-%m-%d", time.localtime())
         self.db.openDatabase()
         total_sale = total_save = 0
         count_sale = count_save = 0
@@ -111,4 +108,5 @@ class ChemistSpider:
 if __name__ == "__main__":
     myutil.logging_init()
     spider = ChemistSpider()
-    spider.saveProductsInfo(CATEGORIES[0])
+    # spider.saveProductsInfo(CATEGORIES[0])
+    spider.saveProductsInfo(CATEGORIES[1])

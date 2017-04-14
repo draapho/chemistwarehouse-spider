@@ -38,7 +38,7 @@ class ChemistDatabase:
             cur.execute("""CREATE TABLE IF NOT EXISTS products(
                          id bigint unsigned auto_increment primary key,
                          name varchar(250) not null,
-                         date char(15) not null,
+                         date date not null,
                          sale float not null,
                          save float not null
                          )""")

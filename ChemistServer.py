@@ -16,7 +16,7 @@ def chemistServer():
 
         # 判断什么时候需要运行, 一天只需要抓一次数据
         run = True
-        date = time.strftime("%Y-%m-%d %a", time.localtime())
+        date = time.strftime("%Y-%m-%d", time.localtime())
         with open(LOG_FILE) as f:
             for line in f:
                 if "products from" in line and date in line[50:]:
@@ -32,7 +32,7 @@ def chemistServer():
 
         # work again at 8 clock next day
         wait = 24 + 8 - time.localtime().tm_hour
-        logging.info("Try to run: {}, then sleep {} hours".format(run, wait))
+        logging.info("Run {}, then sleep {} hours".format("success" if run else "failed", wait))
         time.sleep(wait * 3600)
 
 
