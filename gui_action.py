@@ -3,7 +3,7 @@
 # pip --trusted-host pypi.python.org install numpy
 # pip --trusted-host pypi.python.org install matplotlib
 # pyuic4.bat -x -o gui.py gui.ui
-# pyinstaller.exe --onefile --windowed gui_action.py
+# pyinstaller.exe --windowed gui_action.py
 
 import gui
 import sys
@@ -103,8 +103,12 @@ class GuiAction(QMainWindow, gui.Ui_MainWindow):
         # cook data
         name = "category " + str(totals[1][0]).split()[-1]
         x = totals[2]
-        count_ratio = [round(j / i, 2) for i in counts[3] for j in counts[4]]
-        price_ratio = [round(i / (i + j), 2) for i in totals[3] for j in totals[4]]
+        t_sale = totals[3]
+        t_save = totals[4]
+        c_sale = counts[3]
+        c_save = counts[4]
+        price_ratio = [round(t_sale[i] / (t_sale[i] + t_save[i]), 2) for i in range(len(x))]
+        count_ratio = [round(c_save[i] / c_sale[i], 2) for i in range(len(x))]
         # 设置x轴为日期
         try:
             date_range = (x[-1] - x[1]).days
@@ -133,7 +137,7 @@ class GuiAction(QMainWindow, gui.Ui_MainWindow):
         x = product[2]
         sale = product[3]
         save = product[4]
-        total = [i + j for i in sale for j in save]
+        total = [sale[i] + save[i] for i in range(len(x))]
         # 设置x轴为日期
         try:
             date_range = (x[-1] - x[1]).days
@@ -146,7 +150,7 @@ class GuiAction(QMainWindow, gui.Ui_MainWindow):
         y1, = axis.plot(x, total, '+k--', label='line1')
         y2, = axis.plot(x, sale, 'or-', label='line2')
         y3, = axis.plot(x, save, 'xg-', label='line3')
-        axis.legend([y1, y2, y3], ['sale', 'save', 'total'], loc=4)
+        axis.legend([y1, y2, y3], ['total', 'sale', 'save'], loc=4)
         fig.autofmt_xdate()
 
 if __name__ == '__main__':
