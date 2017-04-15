@@ -116,7 +116,7 @@ class GuiAction(QMainWindow, gui.Ui_MainWindow):
             date_range = 0
         axis.xaxis.set_major_locator(
             mdates.DayLocator(interval=(1 + date_range // 12)))
-        axis.xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d -%a"))
+        axis.xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d %a"))
         axis.set_title(name)
         y1, = axis.plot(x, count_ratio, 'xg-', label='line1')
         y2, = axis.plot(x, price_ratio, '+r-', label='line2')
@@ -145,7 +145,7 @@ class GuiAction(QMainWindow, gui.Ui_MainWindow):
             date_range = 0
         axis.xaxis.set_major_locator(
             mdates.DayLocator(interval=(1 + date_range // 12)))
-        axis.xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d -%a"))
+        axis.xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m-%d %a"))
         axis.set_title(name)
         y1, = axis.plot(x, total, '+k--', label='line1')
         y2, = axis.plot(x, sale, 'or-', label='line2')
