@@ -1,5 +1,4 @@
 # -*- coding:utf-8 -*-
-# pyinstaller.exe ChemistServer.py
 # pyinstaller.exe --windowed ChemistServer.py
 
 import myutil

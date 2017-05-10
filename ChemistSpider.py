@@ -70,6 +70,8 @@ class ChemistSpider:
             # 获取当前页面的产品信息(名称, 售价, 折扣)
             products = []
             page_sale = page_save = 0
+            # myparser = etree.HTMLParser(encoding="utf-8")
+            # root = html.parse(url, parser=myparser)
             root = html.parse(url)
             results = root.xpath('//a[@class="product-container"]')
             for result in results:
@@ -77,6 +79,7 @@ class ChemistSpider:
                     ' ./@title \
                     | .//div[@class="prices"]/span[@class="Price"]/text() \
                     | .//div[@class="prices"]/span[@class="Save"]/text()')
+                product[0] = product[0].encode('utf-8')
                 product = self.cookData(product)
                 products.append(product)
                 page_sale += product[1]
@@ -109,4 +112,8 @@ if __name__ == "__main__":
     myutil.logging_init()
     spider = ChemistSpider()
     # spider.saveProductsInfo(CATEGORIES[0])
-    spider.saveProductsInfo(CATEGORIES[1])
+    # spider.saveProductsInfo(CATEGORIES[1])
+    # spider.saveProductsInfo(CATEGORIES[2])
+    # spider.saveProductsInfo(CATEGORIES[3])
+    # spider.saveProductsInfo(CATEGORIES[4])
+    # spider.saveProductsInfo(CATEGORIES[5])
