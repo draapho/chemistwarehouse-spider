@@ -5,17 +5,18 @@ import time
 import myutil
 import ChemistDatabase
 from lxml import html
+from urllib2 import urlopen
 
 CHEMIST_WAREHOUSE = "http://www.chemistwarehouse.com.au"
 CATEGORIES = [
-    "http://www.chemistwarehouse.com.au/Shop-Online/651/Veterinary",
-    "http://www.chemistwarehouse.com.au/Shop-Online/256/Health",
-    "http://www.chemistwarehouse.com.au/Shop-Online/257/Beauty",
-    "http://www.chemistwarehouse.com.au/Shop-Online/258/Medicines",
-    "http://www.chemistwarehouse.com.au/Shop-Online/259/Personal-Care",
-    "http://www.chemistwarehouse.com.au/Shop-Online/260/Medical-Aids",
-    # "http://www.chemistwarehouse.com.au/Shop-Online/261/Prescriptions",
-    # "http://www.chemistwarehouse.com.au/Shop-Online/694/Confectionery",
+    "https://www.chemistwarehouse.com.au/Shop-Online/651/Veterinary",
+    "https://www.chemistwarehouse.com.au/Shop-Online/256/Health",
+    "https://www.chemistwarehouse.com.au/Shop-Online/257/Beauty",
+    "https://www.chemistwarehouse.com.au/Shop-Online/258/Medicines",
+    "https://www.chemistwarehouse.com.au/Shop-Online/259/Personal-Care",
+    "https://www.chemistwarehouse.com.au/Shop-Online/260/Medical-Aids",
+    # "https://www.chemistwarehouse.com.au/Shop-Online/261/Prescriptions",
+    # "https://www.chemistwarehouse.com.au/Shop-Online/694/Confectionery",
 ]
 
 
@@ -72,7 +73,7 @@ class ChemistSpider:
             page_sale = page_save = 0
             # myparser = etree.HTMLParser(encoding="utf-8")
             # root = html.parse(url, parser=myparser)
-            root = html.parse(url)
+            root = html.parse(urlopen(url))
             results = root.xpath('//a[@class="product-container"]')
             for result in results:
                 product = result.xpath(
@@ -94,7 +95,7 @@ class ChemistSpider:
     def getNext(self, url):
         # 获取下一页的网址
         try:
-            root = html.parse(url)
+            root = html.parse(urlopen(url))
             nextPage = root.xpath('//a[@class="next-page"]/@href')
             if len(nextPage) > 0:
                 nextUrl = CHEMIST_WAREHOUSE + nextPage[0]
